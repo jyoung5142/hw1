@@ -124,13 +124,13 @@ void ULListStr::pop_front(){
   if(head_ == NULL){
     return;
   }
-  head_->last--;
+  head_->first++;
   if(head_->first == head_->last){
     Item* value = head_;
     //If it's the last node
-    head_ = head_->prev;
+    head_ = head_->next;
     if(head_ == NULL){
-      tail_ == NULL;
+      tail_ = NULL;
     }
     else{
       head_->prev = NULL;
@@ -162,11 +162,6 @@ std::string const & ULListStr::front() const{
   return head_->val[0];
 }
 
-/**
-  * Deletes all items in the list
-  */
-void clear();
-
 /** 
   * Returns a pointer to the item at index, loc,
   *  if loc is valid and NULL otherwise
@@ -176,9 +171,7 @@ std::string* ULListStr::getValAtLoc(size_t loc) const{
   if(loc >= size_){
     return NULL;
   }
-  Item* curr = new Item();
-  curr = head_;
-  int iterations = 0;
+  Item* curr = head_;
   while(curr != NULL){
     size_t len = curr->last - curr->first;
     if(len > loc){
